@@ -23,5 +23,5 @@ Run tests continually |
 
 * [Use Azure Pipelines](01-use-azure-pipelines.md)
 * [Key Concepts for Azure Pipelines](02-key-concepts.md)
-* [Customize a Pipeline](03-custoimze-pipeline.md)
+* [Customize a Pipeline](03-customize-pipeline.md)
 * [.NET Core Pipeline Ecosystem](04-dotnet-core.md)
