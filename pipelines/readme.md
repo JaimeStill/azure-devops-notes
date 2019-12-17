@@ -38,3 +38,8 @@ Run tests continually |
   * [Collect Code Coverage](04-dotnet-core.md#collect-code-coverage)
   * [Package and Deliver Your Code](04-dotnet-core.md#package-and-deliver-your-code)
   * [Troubleshooting](04-dotnet-core.md#troubleshooting)
+* [Deploy to a Windows VM](05-deploy-windows-vm.md)
+  * [Preqrequisites](05-deploy-windows-vm.md#prerequisites)
+  * [Create a Deployment Group](05-deploy-windows-vm.md#create-a-deployment-group)
+  * [Define Your CD Release Pipeline](05-deploy-windows-vm.md#define-your-cd-release-pipeline)
+  * [Create a Release to Deploy Your App](05-deploy-windows-vm.md#create-a-release-to-deploy-your-app)
