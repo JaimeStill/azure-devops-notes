@@ -4,7 +4,6 @@
   * [Microsoft-hosted Agents](#microsoft-hosted-agents)
   * [Self-hosted Agents](#self-hosted-agents)
   * [Capabilities](#capabilities)
-  * [Communication](#communication)
 * [Agent Pools](#agent-pools)
 * [Self-hosted Windows Agents](#self-hosted-windows-agents)
   * [Download and Configure the Agent](#download-and-configure-the-agent)

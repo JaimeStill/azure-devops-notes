@@ -21,26 +21,52 @@ Run tests continually |
 
 ## Links
 
-* [Use Azure Pipelines](01-use-azure-pipelines.md)
-* [Key Concepts for Azure Pipelines](02-key-concepts.md)
-* [Customize a Pipeline](03-customize-pipeline.md)
-  * [Change the platform to build on](03-customize-pipeline.md#change-the-platform-to-build-on)
-  * [Add steps](03-customize-pipeline.md#add-steps)
-  * [Build across multiple platforms](03-customize-pipeline.md#build-across-multiple-platforms)
-  * [Bulid using multiple versions](03-customize-pipeline.md#build-using-multiple-versions)
-  * [Customize CI triggers](03-customize-pipeline.md#customize-ci-triggers)
-  * [Customize settings](03-customize-pipeline.md#customize-settings)
-* [.NET Core Pipeline Ecosystem](04-dotnet-core.md)
-  * [Build Environment](04-dotnet-core.md#build-environment)
-  * [Restore Dependencies](04-dotnet-core.md#restore-dependencies)
-  * [Build Your Project](04-dotnet-core.md#build-your-project)
-  * [Run Your Tests](04-dotnet-core.md#run-your-tests)
-  * [Collect Code Coverage](04-dotnet-core.md#collect-code-coverage)
-  * [Package and Deliver Your Code](04-dotnet-core.md#package-and-deliver-your-code)
-  * [Troubleshooting](04-dotnet-core.md#troubleshooting)
-* [Deploy to a Windows VM](05-deploy-windows-vm.md)
-  * [Preqrequisites](05-deploy-windows-vm.md#prerequisites)
-  * [Create a Deployment Group](05-deploy-windows-vm.md#create-a-deployment-group)
-  * [Define Your CD Release Pipeline](05-deploy-windows-vm.md#define-your-cd-release-pipeline)
-  * [Create a Release to Deploy Your App](05-deploy-windows-vm.md#create-a-release-to-deploy-your-app)
-* [Azure DevOps Concepts](06-concepts.md)
+**[Use Azure Pipelines](01-use-azure-pipelines.md)**  
+
+**[Key Concepts for Azure Pipelines](02-key-concepts.md)**  
+
+**[Customize a Pipeline](03-customize-pipeline.md)**  
+
+* [Change the platform to build on](03-customize-pipeline.md#change-the-platform-to-build-on)
+* [Add steps](03-customize-pipeline.md#add-steps)
+* [Build across multiple platforms](03-customize-pipeline.md#build-across-multiple-platforms)
+* [Bulid using multiple versions](03-customize-pipeline.md#build-using-multiple-versions)
+* [Customize CI triggers](03-customize-pipeline.md#customize-ci-triggers)
+* [Customize settings](03-customize-pipeline.md#customize-settings)  
+
+**[.NET Core Pipeline Ecosystem](04-dotnet-core.md)**  
+
+* [Build Environment](04-dotnet-core.md#build-environment)
+* [Restore Dependencies](04-dotnet-core.md#restore-dependencies)
+* [Build Your Project](04-dotnet-core.md#build-your-project)
+* [Run Your Tests](04-dotnet-core.md#run-your-tests)
+* [Collect Code Coverage](04-dotnet-core.md#collect-code-coverage)
+* [Package and Deliver Your Code](04-dotnet-core.md#package-and-deliver-your-code)
+* [Troubleshooting](04-dotnet-core.md#troubleshooting)  
+
+**[Deploy to a Windows VM](05-deploy-windows-vm.md)**  
+
+* [Preqrequisites](05-deploy-windows-vm.md#prerequisites)
+* [Create a Deployment Group](05-deploy-windows-vm.md#create-a-deployment-group)
+* [Define Your CD Release Pipeline](05-deploy-windows-vm.md#define-your-cd-release-pipeline)
+* [Create a Release to Deploy Your App](05-deploy-windows-vm.md#create-a-release-to-deploy-your-app)  
+
+**[Azure DevOps Concepts](06-concepts.md)**  
+
+* [Azure Pipelines Agents](06-concepts.md#azure-pipelines-agents)
+  * [Microsoft-hosted Agents](06-concepts.md#microsoft-hosted-agents)
+  * [Self-hosted Agents](06-concepts.md#self-hosted-agents)
+  * [Capabilities](06-concepts.md#capabilities)
+* [Agent Pools](06-concepts.md#agent-pools)
+* [Self-hosted Windows Agents](06-concepts.md#self-hosted-windows-agents)
+  * [Download and Configure the Agent](06-concepts.md#download-and-configure-the-agent)
+  * [Replace an Agent](06-concepts.md#replace-an-agent)
+  * [Remove and Reconfigure an Agent](06-concepts.md#remove-and-reconfigure-an-agent)
+  * [Unattended Config](06-concepts.md#unattended-config)
+* [Artifacts](06-concepts.md#artifacts)
+  * [Supported Artifact Types](06-concepts.md#supported-artifact-types)
+* [Build Artifacts](06-concepts.md#build-artifacts)
+  * [How to Consume Artifacts](06-concepts.md#how-to-consume-artifacts)
+  * [Build Artifact Tips](06-concepts.md#build-artifact-tips)
+  * [Related Tasks for Publishing Artifacts](06-concepts.md#related-tasks-for-publishing-artifacts)  
+
