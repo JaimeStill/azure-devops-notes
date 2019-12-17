@@ -43,3 +43,4 @@ Run tests continually |
   * [Create a Deployment Group](05-deploy-windows-vm.md#create-a-deployment-group)
   * [Define Your CD Release Pipeline](05-deploy-windows-vm.md#define-your-cd-release-pipeline)
   * [Create a Release to Deploy Your App](05-deploy-windows-vm.md#create-a-release-to-deploy-your-app)
+* [Azure DevOps Concepts](06-concepts.md)

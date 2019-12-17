@@ -10,4 +10,5 @@ This repository captures my notes in an attempt to gain a fundamental understand
   * [Customize a Pipeline](pipelines/03-customize-pipeline.md)
   * [.NET Core Pipeline Ecosystem](pipelines/04-dotnet-core.md)
   * [Deploy to a Windows VM](pipelines/05-deploy-windows-vm.md)
+  * [Azure DevOps Concepts](pipelines/06-concepts.md)
 * [Artifacts](artifacts/readme.md)
