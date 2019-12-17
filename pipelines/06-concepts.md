@@ -11,6 +11,13 @@
   * [Replace an Agent](#replace-an-agent)
   * [Remove and Reconfigure an Agent](#remove-and-reconfigure-an-agent)
   * [Unattended Config](#unattended-config)
+* [Artifacts](#artifacts)
+  * [Supported Artifact Types](#supported-artifact-types)
+* [Build Artifacts](#build-artifacts)
+  * [How to Consume Artifacts](#how-to-consume-artifacts)
+  * [Build Artifact Tips](#build-artifact-tips)
+  * [Related Tasks for Publishing Artifacts](#related-tasks-for-publishing-artifacts)
+
 
 ## Azure Pipelines Agents
 [Back to Top](#azure-devops-concepts)  
@@ -157,3 +164,116 @@ To configure an agent, it must know the URL to your organization or collection a
 
 ## Artifacts
 [Back to Top](#azure-devops-concepts)  
+
+You can publish and consume many types of packages and artifacts with Azure Pipelines. Your continuous integration / continuous deployment (CI / CD) pipeline can publish specific package types to their respective package repositories (NuGet, npm, Python, and so on). Or you can use build artifacts and pipeline artifacts to help store build outputs and intermediate files between build steps. YOu can then add onto, build, test, or even deploy those artifacts.
+
+### Supported Artifact Types
+[Back to Top](#azure-devops-concepts)  
+
+Artifact | Description
+---------|------------
+**Build Artifacts** | Build artifacts are the files that you want your build to produce. Build artifacts can be nearly anything that your team needs to test or deploy your app. For example, you've got `.dll` and `.exe` files and a `.PDB` symbols file of a C# or C++ .NET Windows app.
+**Pipeline Artifacts** | You can use pipeline artifacts to help store build outputs and move intermediate files between jobs in your pipeline. Pipeline artifacts are tied to the pipeline that they're created in. You can use them within the pipeline and download them from the build, as long as the build is retained. Pipeline artifacts are the new generation of build artifats. They take advantage of existing services to dramatically reduce the time it takes to store outputs from your pipelines. **Only available in Azure DevOps Services (no on-prem)**.
+**Maven** | You can publish Maven artifacts to Azure Artifacts feeds or Maven repositories.
+**npm** | You can publish npm packages to Azure Artifacts or npm registries.
+**NuGet** | You can publish NuGet packages to Azure Artifacts, other NuGet services (like NuGet.org), or internal NuGet repositories.
+**PyPl** | YOu can publish Python packages to Azure Artifacts or PyPl repositories.
+**Symbols** | Symbol files contain debugging information for compiled executables. You can publish symbols to symbol servers. Symbol servers enable debuggers to automatically retrieve the correct symbol files without knowing specific product, package, or build information.
+**Universal** | Universal pakcages store one ore more files together in a single unit that has a name and version. Unlike pipeline artifacts that reside in the pipeline, Universal Packages residew thin a feed in Azure Artifacts.
+
+> Build and Release artifacts will be available as long as that Build or Release run is retained, unless you specify how long to retain the artifacts.
+
+## Build Artifacts
+[Back to Top](#azure-devops-concepts)  
+
+Artifacts are the files that you want your build to produce. Artifacts can be anything that your team needs to test or deploy your app.
+
+Articats can be published at any stage of pipeline. You can use two methods for configuring what to publish as an artifact and when to publish it: alongside your code with **YAML**, or in the Azure Pipelines UI with the **classic editor**.
+
+**Example: Publish a text file as an artifact**  
+
+```yml
+- powershell: gci env:* | sort-object name | Format-Table -AutoSize | Out-File $env:BUILD_ARTIFACTSTAGINGDIRECTORY/environment-variables.txt
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: drop
+```
+
+**Example: Publish two sets of artifacts**  
+
+```yml
+- powershell: gci env:* | sort-object name | Format-Table -AutoSize | Out-File $env:BUILD_ARTIFACTSTAGINGDIRECTORY/environment-variables.txt
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: '$(BUild.ArtifactStagingDirectory)'
+    artifactName: drop1
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: drop2
+```
+
+**Example: Assemble C++ artifacts into one location and publish as an artifact**
+
+```yml
+- powershell: gci env:* | sort-object name | Format-Table -AutoSize | Out-File $env:BUILD_ARTIFACTSTAGINGDIRECTORY/environment-variables.txt
+
+- task: CopyFiles@2
+  inputs: 
+    sourceFolder: '$(Build.SourcesDirectory)'
+    contents: '**/$(BuildConfiguration)/**/?(*.exe|*.dll|*.pdb)'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: drop
+```
+
+### How to Consume Artifacts
+[Back to Top](#azure-devops-concepts)  
+
+**Consume artifacts in release pipelines**  
+
+You can download artifacts produced by either a build pipeline (created in a classic editor) or a YAML pipeline (created through a YAML file) in a release pipeline and deploy them to the target of your choice. At present, you cannot download an artifact produced by a YAML pipeline in another YAML pipeline.
+
+**Consume an artifact in the next job of your pipeline**  
+
+You can consume an artifact produced by one job in a subsequent job of the pipeline, even when that job is in a different stage (YAML pipelines). THis can be useful to test your artifact.
+
+**Download to debug**  
+
+You can download an artifact directly from a pipeline for use in debugging.
+
+```yml
+- powershell: gci env:* | sort-object name | Format-Table -AutoSize | Out-File $env:BUILD_ARTIFACTSTAGINGDIRECTORY/environment-variables.txt
+
+- task: DownloadBuildArtifacts@0
+  inputs:
+    buildType: 'current'
+    downloadType: 'single'
+    artifactName: 'drop'
+    downloadPath: '$(System.ArtifactsDirectory)'
+```
+
+### Build Artifact Tips
+[Back to Top](#azure-devops-concepts)  
+
+* **Artifact publish location** argument: **Azure Pipelines/TFS (TFS 2018 RTM and older**: Artifact type: Server) is the best and simplest choice in most cases. This choice causes the artifacts to be stored in Azure Pipelines or TFS. But if you're using a private Windows agent, you've got the option to drop to a UNC file share.
+* **Artifact name** argument: Just enter a name that's meaningful to you.
+* Use forward slashes in file path arguments so that they work for all agents. Backslashes don't work for macOS and Linux agents.
+* On Azure Pipelines and some versions of TFS, two different [variables](https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml) point to the staging directory: `Build.ArtifactStagingDirectory` and `Build.StagingDirectory`. These are interchangeable.
+* The directory referenced by `Build.ArtifactStagingDirectory` is cleaned up after each build.
+* You can [get build artifacts from the REST API](https://docs.microsoft.com/en-us/rest/api/azure/devops/build/Artifacts?view=azure-devops-rest-5.0).
+
+### Related Tasks for Publishing Artifacts
+[Back to Top](#azure-devops-concepts)  
+
+Use these tasks to publish artifacts:
+* [Utility: Copy Files](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/utility/copy-files?view=azure-devops) By copying files to `$(Build.ArtifactStagingDirectory)`, you can publish multiple files of different types from different places specified by your [matching patterns](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/file-matching-patterns?view=azure-devops).
+* [Utility: Delete Files](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/utility/delete-files?view=azure-devops) You can prune unnecessary files that you copied to the staging directory.
+* [Utility: Publish Build Artifacts](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/utility/publish-build-artifacts?view=azure-devops)
+
+When a build is done, if you watched it run, select the **Summary** tab and see your artifact in the **Build artifacts published** section.
