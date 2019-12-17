@@ -1,5 +1,7 @@
 # Azure DevOps Study Notes
 
+[Azure DevOps Documentation](https://docs.microsoft.com/en-us/azure/devops/?view=azure-devops)  
+
 This repository captures my notes in an attempt to gain a fundamental understanding of Azure DevOps capabilities.
 
 * [Pipelines](pipelines/readme.md)
